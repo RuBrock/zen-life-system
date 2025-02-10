@@ -356,3 +356,15 @@
 .PhoneInputInput::placeholder {
   color: #ABB8C4;
 }
+
+.rbc-event {
+  @apply bg-red-800 !important;
+}
+
+.rbc-today {
+  @apply bg-red-100 !important;
+}
+
+.rbc-off-range-bg {
+  @apply bg-[#0000001a] !important;
+}

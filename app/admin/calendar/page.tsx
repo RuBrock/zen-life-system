@@ -68,7 +68,7 @@ const CalendarPage = () => {
   }, []);
 
   return (
-    <main className="mx-auto flex max-w-7xl flex-col my-10">
+    <main className="mx-auto flex max-w-7xl flex-col">
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[860px] flex-1 justify-between pb-12">
           <div className="flex justify-between items-center mb-12">
@@ -95,6 +95,7 @@ const CalendarPage = () => {
 
         </div>
       </section>
+        <div className="px-4">
           <Calendar
             culture={"pt-BR"}
             localizer={localizer}
@@ -107,6 +108,7 @@ const CalendarPage = () => {
             onView={handleViewChange}
             style={{ height: 600, width: "100%" }}
           />
+        </div>
     </main>
   );
 };

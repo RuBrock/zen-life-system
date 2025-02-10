@@ -21,7 +21,9 @@ const Admin = () => {
             />
           </Link>
 
-          <p className="text-16-semibold text-white">Dashboard</p>
+          <Link href="/admin/calendar" className="cursor-pointer">
+            <p className="text-16-semibold text-white">Calendário</p>
+          </Link>
         </header>
 
         <AdminMain />
