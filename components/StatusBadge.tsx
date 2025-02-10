@@ -8,6 +8,7 @@ import {
 import { StatusIcon } from "@/constants";
 
 export const StatusBadge = ({ status, description }: { status: Status, description?: string | null }) => {
+  const statusLabel = status === 'cancelled' ? 'Cancelado' : 'Marcado';
   return (
     <Popover>
       <PopoverTrigger>
@@ -26,7 +27,7 @@ export const StatusBadge = ({ status, description }: { status: Status, descripti
               "text-red-500": status === "cancelled",
             })}
           >
-            {status}
+            {statusLabel}
           </p>
         </div>
       </PopoverTrigger>
