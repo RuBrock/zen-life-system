@@ -42,7 +42,6 @@ export const getRecentAppointmentList = async () => {
 
     const initialCounts = {
       scheduledCount: 0,
-      pendingCount: 0,
       cancelledCount: 0,
     };
 
@@ -51,9 +50,6 @@ export const getRecentAppointmentList = async () => {
         switch (appointment.status) {
           case "scheduled":
             acc.scheduledCount++;
-            break;
-          case "pending":
-            acc.pendingCount++;
             break;
           case "cancelled":
             acc.cancelledCount++;
@@ -74,6 +70,27 @@ export const getRecentAppointmentList = async () => {
   } catch (error) {
     console.error(
       "An error occurred while retrieving the recent appointments:",
+      error
+    );
+  }
+};
+
+export const getScheduledAppointmentList = async () => {
+  try {
+    const appointments = await databases.listDocuments(
+      DATABASE_ID!,
+      APPOINTMENT_COLLECTION_ID!,
+      [Query.equal("status", ["scheduled"])]
+    );
+
+    const data = {
+      documents: appointments.documents,
+    };
+
+    return parseStringify(data);
+  } catch (error) {
+    console.error(
+      "An error occurred while retrieving the scheduled appointments:",
       error
     );
   }

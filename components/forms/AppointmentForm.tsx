@@ -24,13 +24,13 @@ import { getEmployees } from "@/lib/actions/employee.actions";
 import { useAppointments } from "@/contexts/appointments";
 
 interface Props {
-  type: "create" | "schedule" | "cancel";
+  type: "schedule" | "edit" | "cancel";
   appointment?: Appointment;
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
 const AppointmentForm = ({
-  type = "create",
+  type = "schedule",
   appointment,
   setOpen,
 }: Props) => {
@@ -80,13 +80,14 @@ const AppointmentForm = ({
     let status;
     switch (type) {
       case "schedule":
+      case "edit":
         status = "scheduled";
         break;
       case "cancel":
         status = "cancelled";
         break;
       default:
-        status = "pending";
+        status = null;
     }
 
     try {
@@ -114,14 +115,14 @@ const AppointmentForm = ({
         const appointmentToUpdate = {
           appointmentId: appointment.$id,
           appointment: {
-            employee: appointment?.employee.$id,
-            schedule: appointment?.schedule,
-            patientName: appointment?.patientName,
-            patientEmail: appointment?.patientEmail,
-            patientPhone: appointment?.patientPhone,
-            note: appointment?.note,
+            employee: values?.employee,
+            schedule: new Date(values.schedule),
+            patientName: values?.patientName,
+            patientEmail: values?.patientEmail,
+            patientPhone: values?.patientPhone,
+            note: values?.note,
             status: status as Status,
-            cancellationReason: values.cancellationReason,
+            cancellationReason: values?.cancellationReason ? values.cancellationReason : null,
           }
         };
 
@@ -129,7 +130,7 @@ const AppointmentForm = ({
 
         if (updatedAppointment) {
           form.reset();
-          toast.success('Marcação cancelada com sucesso!');
+          toast.success(`Marcação ${type === 'cancel' ? 'cancelada' : 'atualizada'} com sucesso!`);
           toggleRevalidate(true);
           if(typeof setOpen === 'function') {
             setOpen(false);
@@ -150,8 +151,11 @@ const AppointmentForm = ({
     case "schedule":
       buttonLabel = "Confirmar Marcação";
       break;
+    case "edit":
+      buttonLabel = "Atualizar Marcação";
+      break;
     default:
-      buttonLabel = "Criar Pré-Marcação";
+      buttonLabel = null;
   }
 
   const onInvalid = (errors: any) => console.error(errors)

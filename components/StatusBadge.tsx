@@ -23,7 +23,6 @@ export const StatusBadge = ({ status, description }: { status: Status, descripti
           <p
             className={clsx("text-12-semibold capitalize", {
               "text-green-500": status === "scheduled",
-              "text-blue-500": status === "pending",
               "text-red-500": status === "cancelled",
             })}
           >

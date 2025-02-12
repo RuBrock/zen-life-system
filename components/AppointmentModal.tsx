@@ -20,17 +20,28 @@ export const AppointmentModal = ({
   disabled,
 }: {
   appointment?: Appointment;
-  type: "schedule" | "cancel";
+  type: "schedule" | "edit" | "cancel";
   disabled: boolean;
 }) => {
   const [open, setOpen] = useState(false);
-  const typeLabel = type === 'schedule' ? 'agendar' : 'cancelar';
+  let typeLabel = '';
+  switch(type) {
+    case 'schedule': 
+      typeLabel = 'agendar';
+      break;
+    case 'cancel':
+      typeLabel = 'cancelar';
+      break;
+    case "edit":
+      typeLabel = 'editar';
+      break;
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className={`capitalize ${type === "schedule" && "text-green-500"}`}
+          className={`capitalize ${type === "edit" && "text-green-500"}`}
           disabled={disabled}
         >
           {typeLabel}

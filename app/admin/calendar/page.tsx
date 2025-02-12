@@ -1,7 +1,7 @@
 'use client'
 
 import withAuth from "@/components/withAuth";
-import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
+import { getScheduledAppointmentList } from "@/lib/actions/appointment.actions";
 import { Appointment } from "@/types/appwrite.types";
 import { SetStateAction, useCallback, useEffect, useState } from "react";
 
@@ -37,7 +37,7 @@ const CalendarPage = () => {
   useEffect(() => {
     const getAppointmentsData = async () => {
       try {
-        const appointmentsList = await getRecentAppointmentList();
+        const appointmentsList = await getScheduledAppointmentList();
         const appointments: Array<Appointment> = appointmentsList.documents;
 
         if (appointments) {
@@ -106,7 +106,7 @@ const CalendarPage = () => {
             onNavigate={handleNavigate}
             view={view}
             onView={handleViewChange}
-            style={{ height: 600, width: "100%" }}
+            style={{ height: 600, width: "100%", minWidth: 1000 }}
           />
         </div>
     </main>

@@ -96,6 +96,11 @@ export const columns: ColumnDef<Appointment>[] = [
         <div className="flex gap-1">
           <AppointmentModal
             appointment={appointment}
+            type="edit"
+            disabled={appointment.status === 'cancelled'}
+          />
+          <AppointmentModal
+            appointment={appointment}
             type="cancel"
             disabled={appointment.status === 'cancelled'}
           />
