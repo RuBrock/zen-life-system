@@ -106,7 +106,7 @@ const CalendarPage = () => {
             onNavigate={handleNavigate}
             view={view}
             onView={handleViewChange}
-            style={{ height: 600, width: "100%", minWidth: 1000 }}
+            style={{ height: 600, width: "100%" }}
           />
         </div>
     </main>
