@@ -1,13 +1,15 @@
 'use client'
 
+import { ACCESS_LOCAL_STORAGE_KEY } from "@/constants";
 import { decryptKey } from "@/lib/utils";
+import * as localStorage from "@/lib/localstorage";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 
  
 const withAuth = (Component: any) => {
   return function WithAuth(props: any) {
-    const encryptedKey = typeof window != 'undefined' ? window.localStorage.getItem('accessKey') : null;
+    const encryptedKey = localStorage.get(ACCESS_LOCAL_STORAGE_KEY);
 
     useEffect(() => {
       const accessKey = encryptedKey && decryptKey(encryptedKey);

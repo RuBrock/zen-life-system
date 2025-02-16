@@ -18,6 +18,8 @@ import { MouseEvent, useEffect, useState } from "react"
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { decryptKey, encryptKey } from "@/lib/utils";
+import * as localStorage from "@/lib/localstorage";
+import { ACCESS_LOCAL_STORAGE_KEY, ACCESS_TTL } from "@/constants";
 
 
 const PasskeyModal = () => {
@@ -28,7 +30,7 @@ const PasskeyModal = () => {
   const [passkey, setPasskey] = useState('');
   const [error, setError] = useState('');
 
-  const encryptedKey = typeof window != 'undefined' ? window.localStorage.getItem('accessKey') : null;
+  const encryptedKey = localStorage.get(ACCESS_LOCAL_STORAGE_KEY);
 
   useEffect(() => {
     const accessKey = encryptedKey && decryptKey(encryptedKey);
@@ -54,7 +56,7 @@ const PasskeyModal = () => {
     if(passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
       const encryptedKey = encryptKey(passkey);
 
-      localStorage.setItem('accessKey', encryptedKey);
+      localStorage.set(ACCESS_LOCAL_STORAGE_KEY, encryptedKey, ACCESS_TTL);
 
       setOpen(false);
     } else {
